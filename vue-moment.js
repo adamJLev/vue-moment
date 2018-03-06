@@ -1,6 +1,12 @@
 module.exports = {
 	install: function (Vue, options) {
-		var moment = options && options.moment ? options.moment : require('moment');
+		// Why the fuck does a conditional require still include the file in the webpack output? Removing that part for now to save kbs.
+		//var moment = options && options.moment ? options.moment : require('moment');
+
+		var moment = options.moment;
+		if (!moment) {
+			throw new Exception('You need to pass in moment.');
+		}
 		
 		Object.defineProperties(Vue.prototype, {
 			$moment: {
